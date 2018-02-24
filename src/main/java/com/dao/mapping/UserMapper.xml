@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  ~ @(#) UserDao.xml
+  ~ <br> Copyright:  Copyright (c) 2017
+  ~ <br> @author caijinhuang
+  ~ <br> 2017-10-30 11:16:59
+  -->
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.dao.api.UserDao">
+
+    <!-- 根据id查询用户 -->
+    <select id="getUserInfo" parameterType="int" resultType="com.domain.UserEntity">
+            SELECT *
+            FROM  user
+            WHERE id = #{id}
+    </select>
+
+    <!-- 查询用户列表 -->
+    <select id="getUserAll" resultType="com.domain.UserEntity">
+            SELECT *
+            FROM user
+    </select>
+
+    <!-- 插入数据 -->
+    <insert id="insertUser" parameterType="com.domain.UserEntity">
+        INSERT INTO user VALUES(#{id},#{username},#{password},#{address},#{createTime},#{updateTime});
+    </insert>
+</mapper>  
