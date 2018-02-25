@@ -1,5 +1,7 @@
 package com.service.api;
 
+import com.domain.Person;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
@@ -10,7 +12,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -48,8 +54,42 @@ public class FeatureServiceTest {
 
     }
 
+
+    /**
+     * 函数编程之lambda表达式
+     * @throws Exception
+     */
     @Test
     public void lambdaApi() throws Exception {
+        List<Person> list = new ArrayList<>();
+        //构造Person列表数据
+        for (int i = 0; i < 10; i++) {
+            Person p = new Person("张"+i,i,""+i);
+            list.add(p);
+        }
+        //lambda函数查询名字符合的对象列表
+        List<Person> pList = find(list,p->p.getName().equals("张3") || p.getName().equals("张4"));
+        logger.info(pList.size());
+
+        //通过stream().map遍历所有元素。
+        pList.stream().map(p -> {
+            logger.info(p.getName());
+            return p;
+        }).collect(Collectors.toList());
+
+    }
+
+    /**
+     *
+     * @param list
+     * @param predicate 断言函数，函数的返回结果必须为boolean类型。
+     * @return
+     */
+    public List<Person> find(List<Person> list, Predicate<Person> predicate) {
+        return list.stream().filter(p -> {
+            logger.info(p.getName());
+            return predicate.test(p);
+        }).collect(Collectors.toList());
     }
 
     @Test
