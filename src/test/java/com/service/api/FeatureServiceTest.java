@@ -94,6 +94,15 @@ public class FeatureServiceTest {
 
     @Test
     public void otherApi() throws Exception {
+        /**
+         * join
+         */
+        List list = new ArrayList();
+        for (int i = 0; i < 10; i++) {
+            list.add(String.valueOf(i));
+        }
+        logger.info(String.join(":", list));
+        logger.info(String.join(":", "10", "20", "30"));
     }
 
 }
